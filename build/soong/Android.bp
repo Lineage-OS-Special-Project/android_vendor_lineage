@@ -42,6 +42,22 @@ lineage_generator {
     ],
 }
 
+bootstrap_go_package {
+    name: "soong-lineage-mkdir",
+    pkgPath: "lineage/soong/mkdir",
+    deps: [
+        "blueprint",
+        "blueprint-pathtools",
+        "soong",
+        "soong-android",
+    ],
+    srcs: [
+        "mkdir/init.go",
+        "mkdir/mkdir.go",
+    ],
+    pluginFor: ["soong_build"],
+}
+
 cc_defaults {
     name: "generated_kernel_header_defaults",
     generated_headers: ["generated_kernel_includes"],
@@ -434,23 +450,6 @@ qti_vibrator_hal {
         },
         qti_vibrator_effect_lib: {
             shared_libs: ["%s"],
-        },
-    },
-}
-
-soong_config_module_type {
-    name: "qcom_libfmjni",
-    module_type: "cc_defaults",
-    config_namespace: "lineageQcomVars",
-    bool_variables: ["no_fm_firmware"],
-    properties: ["cflags"],
-}
-
-qcom_libfmjni {
-    name: "qcom_libfmjni_defaults",
-    soong_config_variables: {
-        no_fm_firmware: {
-            cflags: ["-DQCOM_NO_FM_FIRMWARE"],
         },
     },
 }
